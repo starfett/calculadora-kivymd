@@ -1,0 +1,162 @@
+<Tela>:
+    orientation: "vertical"
+    MDFloatLayout:
+        MDFloatLayout:
+            pos_hint: {"center_x": .5, "center_y":.65}
+            size_hint: 1, .4
+            ScrollView:
+                pos_hint: {"center_x": .5, "center_y":1}
+                MDList:
+                    id: lista_do_historico
+                    size_hint_y: None
+
+        MDBoxLayout:
+            md_bg_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": .5, "center_y":.65}
+            size_hint: 1, 0.005
+
+        MDLabel:
+            id: valor_operado
+            pos_hint: {"center_x": .5, "center_y":.5}
+            text: ""
+            font_size: 24
+        MDLabel:
+            id: numeros
+            pos_hint: {"center_x": .5, "center_y":.15}
+            text: ""
+            font_size: 32
+    MDBoxLayout:
+        md_bg_color: app.theme_cls.primary_color
+        size_hint: 1, 0.005
+    MDBoxLayout:
+        adaptive_height: True
+        MDBoxLayout:
+            md_bg_color: 1,1,1,1
+            orientation:"vertical"
+            adaptive_height: True
+            MDBoxLayout:
+                adaptive_height: True
+                MDFlatButton:
+                    text: "AC"
+                    font_size: 32
+                    size_hint_x: .025
+                    on_release:
+                        root.ids.numeros.text = ""
+                        root.ids.valor_operado.text = ""
+                MDFlatButton:
+                    text: "/"
+                    font_size: 32
+                    size_hint_x: .025
+                    on_release:
+                        root.ids.valor_operado.text = root.verifica_operador("/")
+                        root.ids.numeros.text = ""
+                MDFlatButton:
+                    text: "*"
+                    font_size: 32
+                    size_hint_x: .025
+                    on_release:
+                        root.ids.valor_operado.text = root.verifica_operador("*")
+                        root.ids.numeros.text = ""
+            MDBoxLayout:
+                adaptive_height: True
+                MDFlatButton:
+                    text: "7"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"7"
+                MDFlatButton:
+                    text: "8"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"8"
+                MDFlatButton:
+                    text: "9"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"9"
+            MDBoxLayout:
+                adaptive_height: True
+                MDFlatButton:
+                    text: "4"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"4"
+                MDFlatButton:
+                    text: "5"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"5"
+                MDFlatButton:
+                    text: "6"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"6"
+            MDBoxLayout:
+                adaptive_height: True
+                MDFlatButton:
+                    text: "1"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"1"
+                MDFlatButton:
+                    text: "2"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"2"
+                MDFlatButton:
+                    text: "3"
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"3"
+            MDBoxLayout:
+                adaptive_height: True
+                MDFlatButton:
+                    text: "0"
+                    font_size: 36
+                    size_hint_x: .050
+                    on_release: root.ids.numeros.text = root.ids.numeros.text+"0"
+                MDFlatButton:
+                    text: ","
+                    font_size: 36
+                    size_hint_x: .025
+                    on_release: root.ids.numeros.text =  root.verifica_real()
+        MDBoxLayout:
+            md_bg_color: 1,1,1,1
+            orientation:"vertical"
+            adaptive_width: True
+            MDCard:
+                size_hint_y: .25
+                elevation:0
+                MDFloatLayout:
+                    MDIconButton:
+                        theme_text_color: "Custom"
+                        text_color:  0.7176470588235294, 0.10980392156862745, 0.10980392156862745, 1.0
+                        icon: "backspace-outline"
+                        pos_hint: {"center_x":.5, "center_y": .5}
+                        on_press: root.ids.numeros.text = root.ids.numeros.text[0:len(root.ids.numeros.text)-1]
+            MDFlatButton:
+                text: "+"
+                font_size: 36
+                on_release:
+                    root.ids.valor_operado.text = root.verifica_operador("+")
+                    root.ids.numeros.text = ""
+            MDFlatButton:
+                text: "-"
+                font_size: 36
+                on_release:
+                    root.ids.valor_operado.text = root.verifica_operador("-")
+                    root.ids.numeros.text = ""
+            MDFlatButton:
+                text: "="
+                theme_text_color: "Custom"
+                text_color: 0.12941176470588237, 0.5882352941176471, 0.9529411764705882, 1.0
+                font_size: 36
+                size_hint_y: .5
+                on_release:
+                    root.ids.valor_operado.text = root.calcular()
+                    root.ids.numeros.text = ""
+
+<LinhaDoHistorico>:
+    on_press:
+        app.root.ids.valor_operado.text =  F"{root.text.split(' ')[0]} {root.text.split(' ')[1]}"
+        app.root.ids.numeros.text =  root.text.split(' ')[2]
